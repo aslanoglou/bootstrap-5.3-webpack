@@ -4,7 +4,7 @@ const path = require('path');
 const autoprefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const miniCssExtractPlugin = require('mini-css-extract-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const fs = require('fs');
 
 function generateEntryPoints(directory) {
@@ -36,19 +36,20 @@ module.exports = {
             template: './src/index.html',
             filename: 'index.html', // Output filename for index.html
         }),
-        new HtmlWebpackPlugin({
-            template: './src/assignment.html',
-            filename: 'assignment.html', // Output filename for assignment.html
-        }),
+        // new HtmlWebpackPlugin({
+        //     template: './src/assignment.html',
+        //     filename: 'assignment.html', // Output filename for assignment.html
+        // }),
         new miniCssExtractPlugin({
             filename: 'css/[name].bundle.css', // Output filename for CSS files
         }),
-        new CopyPlugin({
+        new CopyWebpackPlugin({
             patterns: [
-                { from: 'src/images', to: 'images' },
-                { from: 'src/fonts', to: 'fonts' },
+                { from: 'src/images', to: 'images', noErrorOnMissing: true },
+                { from: 'src/fonts', to: 'fonts', noErrorOnMissing: true },
             ],
         }),
+
     ],
     module: {
         rules: [
